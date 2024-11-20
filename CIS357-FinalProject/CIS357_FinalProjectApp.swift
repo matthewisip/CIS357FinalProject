@@ -8,10 +8,12 @@
 import SwiftUI
 
 @main
-struct CIS357_FinalProjectApp: App {
+struct DiscGolfCardsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                StartScreenView()
+            }
         }
     }
 }
