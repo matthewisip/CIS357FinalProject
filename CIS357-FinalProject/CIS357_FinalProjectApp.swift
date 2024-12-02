@@ -12,7 +12,7 @@ struct DiscGolfCardsApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                StartScreenView()
+                LoginScreenView()
             }
         }
     }
