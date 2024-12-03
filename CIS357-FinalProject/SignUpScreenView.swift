@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseAuth
 
 struct SignUpScreenView: View {
     @State private var email: String = ""
@@ -26,8 +27,6 @@ struct SignUpScreenView: View {
             // Email Field
             TextField("Email", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .keyboardType(.emailAddress)
-                .autocapitalization(.none)
             
             // Password Field
             SecureField("Password", text: $password)

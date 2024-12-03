@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class GameLogic: ObservableObject {
     @Published var players: Int
@@ -70,5 +71,14 @@ class GameLogic: ObservableObject {
         playedCards.removeAll()
         gameOver = false
         dealInitialCards()
+    }
+    func checkUserAccount(user:String, pwd:String) async -> Bool {
+        do{
+            try await Auth.auth().signIn(withEmail: user, password: pwd)
+            return true
+        } catch{
+            print("Error \(error.localizedDescription)")
+            return false
+        }
     }
 }

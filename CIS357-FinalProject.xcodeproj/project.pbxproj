@@ -10,8 +10,14 @@
 		A56782CC2CEE5F09004672BE /* CIS357_FinalProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56782CB2CEE5F09004672BE /* CIS357_FinalProjectApp.swift */; };
 		A56782D02CEE5F0B004672BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A56782CF2CEE5F0B004672BE /* Assets.xcassets */; };
 		A56782D42CEE5F0B004672BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A56782D32CEE5F0B004672BE /* Preview Assets.xcassets */; };
-		A56782DB2CEE5F6B004672BE /* StartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56782DA2CEE5F6B004672BE /* StartScreen.swift */; };
 		A56782DD2CEE5F9D004672BE /* GameScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56782DC2CEE5F9D004672BE /* GameScreenView.swift */; };
+		A5E6CD6D2CFE8F430017B4D8 /* LoginScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E6CD6C2CFE8F430017B4D8 /* LoginScreenView.swift */; };
+		A5E6CD6F2CFE8F920017B4D8 /* LobbyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E6CD6E2CFE8F920017B4D8 /* LobbyScreenView.swift */; };
+		A5E6CD712CFE8FC60017B4D8 /* SignUpScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E6CD702CFE8FC60017B4D8 /* SignUpScreenView.swift */; };
+		A5E6CD732CFE8FD70017B4D8 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E6CD722CFE8FD70017B4D8 /* GameLogic.swift */; };
+		A5E6CD782CFE922F0017B4D8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A5E6CD772CFE922F0017B4D8 /* FirebaseAuth */; };
+		A5E6CD7A2CFE922F0017B4D8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A5E6CD792CFE922F0017B4D8 /* FirebaseFirestore */; };
+		A5E6CD7C2CFE968C0017B4D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5E6CD7B2CFE968C0017B4D8 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,8 +26,12 @@
 		A56782CF2CEE5F0B004672BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A56782D12CEE5F0B004672BE /* CIS357_FinalProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CIS357_FinalProject.entitlements; sourceTree = "<group>"; };
 		A56782D32CEE5F0B004672BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A56782DA2CEE5F6B004672BE /* StartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreen.swift; sourceTree = "<group>"; };
 		A56782DC2CEE5F9D004672BE /* GameScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenView.swift; sourceTree = "<group>"; };
+		A5E6CD6C2CFE8F430017B4D8 /* LoginScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginScreenView.swift; path = "Preview Content/LoginScreenView.swift"; sourceTree = "<group>"; };
+		A5E6CD6E2CFE8F920017B4D8 /* LobbyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LobbyScreenView.swift; path = ../LobbyScreenView.swift; sourceTree = "<group>"; };
+		A5E6CD702CFE8FC60017B4D8 /* SignUpScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreenView.swift; sourceTree = "<group>"; };
+		A5E6CD722CFE8FD70017B4D8 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
+		A5E6CD7B2CFE968C0017B4D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5E6CD782CFE922F0017B4D8 /* FirebaseAuth in Frameworks */,
+				A5E6CD7A2CFE922F0017B4D8 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,12 +66,16 @@
 		A56782CA2CEE5F09004672BE /* CIS357-FinalProject */ = {
 			isa = PBXGroup;
 			children = (
-				A56782CB2CEE5F09004672BE /* CIS357_FinalProjectApp.swift */,
 				A56782CF2CEE5F0B004672BE /* Assets.xcassets */,
 				A56782D12CEE5F0B004672BE /* CIS357_FinalProject.entitlements */,
 				A56782D22CEE5F0B004672BE /* Preview Content */,
-				A56782DA2CEE5F6B004672BE /* StartScreen.swift */,
+				A56782CB2CEE5F09004672BE /* CIS357_FinalProjectApp.swift */,
+				A5E6CD6C2CFE8F430017B4D8 /* LoginScreenView.swift */,
+				A5E6CD6E2CFE8F920017B4D8 /* LobbyScreenView.swift */,
 				A56782DC2CEE5F9D004672BE /* GameScreenView.swift */,
+				A5E6CD702CFE8FC60017B4D8 /* SignUpScreenView.swift */,
+				A5E6CD722CFE8FD70017B4D8 /* GameLogic.swift */,
+				A5E6CD7B2CFE968C0017B4D8 /* GoogleService-Info.plist */,
 			);
 			path = "CIS357-FinalProject";
 			sourceTree = "<group>";
@@ -88,6 +104,10 @@
 			dependencies = (
 			);
 			name = "CIS357-FinalProject";
+			packageProductDependencies = (
+				A5E6CD772CFE922F0017B4D8 /* FirebaseAuth */,
+				A5E6CD792CFE922F0017B4D8 /* FirebaseFirestore */,
+			);
 			productName = "CIS357-FinalProject";
 			productReference = A56782C82CEE5F09004672BE /* CIS357-FinalProject.app */;
 			productType = "com.apple.product-type.application";
@@ -116,6 +136,9 @@
 				Base,
 			);
 			mainGroup = A56782BF2CEE5F09004672BE;
+			packageReferences = (
+				A5E6CD762CFE91EE0017B4D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = A56782C92CEE5F09004672BE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -132,6 +155,7 @@
 			files = (
 				A56782D42CEE5F0B004672BE /* Preview Assets.xcassets in Resources */,
 				A56782D02CEE5F0B004672BE /* Assets.xcassets in Resources */,
+				A5E6CD7C2CFE968C0017B4D8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,9 +166,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5E6CD732CFE8FD70017B4D8 /* GameLogic.swift in Sources */,
+				A5E6CD6D2CFE8F430017B4D8 /* LoginScreenView.swift in Sources */,
 				A56782DD2CEE5F9D004672BE /* GameScreenView.swift in Sources */,
 				A56782CC2CEE5F09004672BE /* CIS357_FinalProjectApp.swift in Sources */,
-				A56782DB2CEE5F6B004672BE /* StartScreen.swift in Sources */,
+				A5E6CD712CFE8FC60017B4D8 /* SignUpScreenView.swift in Sources */,
+				A5E6CD6F2CFE8F920017B4D8 /* LobbyScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +386,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A5E6CD762CFE91EE0017B4D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A5E6CD772CFE922F0017B4D8 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5E6CD762CFE91EE0017B4D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		A5E6CD792CFE922F0017B4D8 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5E6CD762CFE91EE0017B4D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A56782C02CEE5F09004672BE /* Project object */;
 }

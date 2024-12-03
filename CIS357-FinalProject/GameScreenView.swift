@@ -34,15 +34,19 @@ struct GameScreenView: View {
             Text("Your Cards:")
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(playerCards[currentTurn - 1], id: \.self) { card in
-                        Button(action: {
-                            playCard(card)
-                        }) {
-                            Text(card)
-                                .padding()
-                                .background(Color.gray.opacity(0.2))
-                                .cornerRadius(8)
+                    if playerCards.indices.contains(currentTurn - 1) {
+                        ForEach(playerCards[currentTurn - 1], id: \.self) { card in
+                            Button(action: {
+                                playCard(card)
+                            }) {
+                                Text(card)
+                                    .padding()
+                                    .background(Color.gray.opacity(0.2))
+                                    .cornerRadius(8)
+                            }
                         }
+                    } else {
+                        Text("No cards available").italic()
                     }
                 }
             }
