@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS Project Showcase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        main {
+            padding: 2rem;
+        }
+        section {
+            margin-bottom: 2rem;
+        }
+        h1, h2, h3, h4 {
+            color: #333;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        iframe {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            border: none;
+        }
+        pre {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>iOS Disc Golf Card Game</h1>
+    </header>
+    <main>
+        <section>
+            <h2>About the Project</h2>
+            <p>Welcome to Matthew Isip and Kyle Fink's Mobile Disc Golf Card Game. Below, you'll find a tutorial explaining the code, a video demonstration of the app, and a link to our presentation.</p>
+        </section>
+        <section>
+            <h2>Code Tutorial</h2>
+            <h3>Overview</h3>
+            <p>
+                Our Disc Golf Card Game app was developed in Swift to be used by iOS devices.
+                The IDE used for our project was XCode 16.0, which requires developers to use macOS.
+            </p>
+            <h3>Step-By-Step Instructions</h3>
+            <h4>Planning</h4>
+            <p>
+                Begin with planning out the project, the eventual appearance, functionality, and usability of the app at the end.
+                Think about the different screens that will be used, and what features you want to see a part of those individual screens.
+            </p>
+            <h4>Start Screen</h4>
+            <p>
+                For this specific project, we will begin with the StartScreen.
+                The features that we want this page to have are 2 inputs: one for how many players will be in the game and another for how many holes the user will be playing.
+                On top of having multiple screens, we will also need to set up the navigation between the multiple screens.
+            </p>
+            <p>First, initialize the variables for player and hole selection:</p>
+            <pre>
+@State private var selectedPlayers: String = "1"
+@State private var selectedHoles: String = "9"
+            </pre>
+            <p>
+                This will initialize the variables, as well as set the defaults to 1 and 9.
+                Next, we can begin working on the actual screen.
+                To do so, we will utilize VStack. Inside of our VStack, we will include a mix of text and pickers. To create our title card, we will use the following:
+            </p>
+            <pre>
+VStack(spacing: 16) {
+    Text("Disc Golf Cards")
+        .font(.largeTitle)
+        .fontWeight(.bold)
+    VStack {
+        Text("Select Players")
+        Picker("Players", selection: $selectedPlayers) {
+            ForEach(["1", "2", "3", "4"], id: \.self) { player in
+                Text(player).tag(player)
+            }
+        }
+    }
+    VStack {
+        Text("Select Holes")
+        Picker("Holes", selection: $selectedHoles) {
+            ForEach(["9", "18"], id: \.self) { hole in
+                Text(hole).tag(hole)
+            }
+        }
+    }
+}
+            </pre>
+            <p>
+                The same can be done for our holes selection, with the options of 9 or 18.
+                The next step is to add a way to navigate away from the start screen once the user has made their selections.
+                To do so, we will utilize NavigationLink.
+            </p>
+            <pre>
+NavigationLink(
+    destination: GameScreenView(
+        players: Int(selectedPlayers) ?? 1,
+        holes: Int(selectedHoles) ?? 9
+    ),
+    label: {
+        Text("Start Game")
+            .font(.title2)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+    }
+)
+.disabled(selectedPlayers.isEmpty || selectedHoles.isEmpty)
+            </pre>
+            <p>
+                Adding the disabled field allows for the button to be non-accessible until the user has put in the required information.
+                Having made the destination of the NavigationLink point to the new GameScreenView, the next step is to actually begin working on that page.
+            </p>
+            <h4>Game Screen</h4>
+            <p>
+                When planning out the features that we want to see on the game screen, we can think of displaying which player's turn it currently is, what hole the group is on, as well as functionality for players to draw cards, view their cards, and to have the ability to redraw a card or to move on to the next person.
+                First, we will start by initializing our variables for the screen.
+            </p>
+            <p>Initialize the variables:</p>
+            <pre>
+@State private var currentTurn: Int = 1
+@State private var currentHole: Int = 1
+@State private var cardText: String = ""
+            </pre>
+            <p>
+                After creating our variables, it's now time to work on the actual widgets of the screen.
+                To do so, we will create another VStack just like we did for the Start Screen.
+            </p>
+            <pre>
+VStack(spacing: 16) {
+    Text("Player \(currentTurn)'s Turn")
+        .font(.title)
+    Text("Hole \(currentHole)")
+        .font(.headline)
+    Text(cardText.isEmpty ? "Draw a card" : cardText)
+        .font(.title2)
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(Color.gray.opacity(0.2))
+        .cornerRadius(10)
+    Button(action: { drawCard() }) {
+        Text("Draw Card")
+            .font(.title2)
+            .padding()
+            .background(Color.green)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+    }
+    Button(action: { nextTurn() }) {
+        Text("Next Player")
+            .font(.title2)
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+    }
+}
+            </pre>
+            <h4>Next Turn Function</h4>
+            <p>The <code>nextTurn</code> function updates the current player and hole number:</p>
+            <pre>
+private func nextTurn() {
+    if currentTurn < players {
+        currentTurn += 1
+    } else {
+        currentTurn = 1
+        if currentHole < holes {
+            currentHole += 1
+        } else {
+            cardText = "Game Over!"
+        }
+    }
+}
+            </pre>
+            <h4>Card Drawing</h4>
+            <p>Create the <code>drawCard</code> function to display cards dynamically:</p>
+            <pre>
+private func drawCard() {
+    cardText = "Your card message or logic here"
+}
+            </pre>
+        </section>
+        <section>
+            <h2>Video Demonstration</h2>
+            <p>Watch the video demonstration of the app in action:</p>
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="iOS Project Demonstration"></iframe>
+        </section>
+        <section>
+            <h2>Presentation</h2>
+            <p>Check out my full presentation on the project:</p>
+            <a href="https://docs.google.com/presentation/d/1AUuzv_obtd8mBatL8UhGdiRqETh6o1ShAx1jNWii3ww/edit?usp=sharing" target="_blank">View Presentation</a>
+        </section>
+    </main>
+</body>
+</html>
