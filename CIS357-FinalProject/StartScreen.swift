@@ -7,9 +7,10 @@
 import SwiftUI
 
 struct StartScreenView: View {
-    @State private var selectedPlayers: String = "1"
-    @State private var selectedHoles: String = "9"
-    
+    @State private var selectedPlayers: Int = 1
+    @State private var selectedHoles: Int = 9
+    @State private var isReady: Bool = false
+
     var body: some View {
         VStack(spacing: 16) {
             Text("Disc Golf Cards")
@@ -22,37 +23,39 @@ struct StartScreenView: View {
             VStack {
                 Text("Select Players")
                 Picker("Players", selection: $selectedPlayers) {
-                    ForEach(["1", "2", "3", "4"], id: \.self) { player in
-                        Text(player).tag(player)
+                    ForEach(1...8, id: \""self) { player in
+                        Text("\(player)").tag(player)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                .pickerStyle(WheelPickerStyle())
             }
             
             // Hole Selection
             VStack {
                 Text("Select Holes")
                 Picker("Holes", selection: $selectedHoles) {
-                    ForEach(["9", "18"], id: \.self) { hole in
-                        Text(hole).tag(hole)
+                    ForEach([9, 18], id: \""self) { hole in
+                        Text("\(hole)").tag(hole)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
             }
             
-            // Start Button
-            NavigationLink(
-                destination: GameScreenView(players: Int(selectedPlayers) ?? 1, holes: Int(selectedHoles) ?? 9),
-                label: {
-                    Text("Start Game")
-                        .font(.title2)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                })
-                .disabled(selectedPlayers.isEmpty || selectedHoles.isEmpty)
+            Button(action: {
+                isReady = true
+            }) {
+                Text("Ready")
+                    .font(.title2)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .disabled(selectedPlayers == 0 || selectedHoles == 0)
+            .sheet(isPresented: $isReady) {
+                GameScreenView(players: selectedPlayers, holes: selectedHoles)
+            }
             
             Spacer()
         }
