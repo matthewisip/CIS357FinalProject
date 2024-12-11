@@ -82,7 +82,7 @@
             </p>
             <p>First, initialize the variables for player and hole selection:</p>
             <pre>
-@State private var selectedPlayers: String = "1"
+@State private var selectedPlayers: String = "2"
 @State private var selectedHoles: String = "9"
             </pre>
             <p>
@@ -98,7 +98,7 @@ VStack(spacing: 16) {
     VStack {
         Text("Select Players")
         Picker("Players", selection: $selectedPlayers) {
-            ForEach(["1", "2", "3", "4"], id: \.self) { player in
+            ForEach([“2”, “3”, “4”, “5”, “6”, “7”, “8”], id: \.self) { player in
                 Text(player).tag(player)
             }
         }
@@ -149,7 +149,12 @@ NavigationLink(
             <pre>
 @State private var currentTurn: Int = 1
 @State private var currentHole: Int = 1
-@State private var cardText: String = ""
+@State private var playerCards: [[(name: String, description: String)]] = []
+@State private var playedCards: [(name: String, description: String)] = []
+@State private var cardText: String = "No cards have been played yet."
+@State private var isGameOver: Bool = false // New state to track game over
+
+let allCards: [(name: String, description: String)] = generateDeck()
             </pre>
             <p>
                 After creating our variables, it's now time to work on the actual widgets of the screen.
@@ -201,13 +206,100 @@ private func nextTurn() {
     }
 }
             </pre>
-            <h4>Card Drawing</h4>
-            <p>Create the <code>drawCard</code> function to display cards dynamically:</p>
+            <h4>Creating the Cards</h4>
+            <p>To create our cards, we will create an array of the different card names and 
+                descriptions that we want to be able to play. Here we define the function that 
+                returns the deck.
+            </p>
             <pre>
-private func drawCard() {
-    cardText = "Your card message or logic here"
-}
-            </pre>
+private static func generateDeck() -> [(name: String, description: String)] {
+    return [
+        ("Mulligan", "Take another shot without penalty."),
+        ("Skip a Hole", "Skip this hole without penalty."),
+        . . .
+        ("Heckle", "Heckle an opponent during one of their shots."),
+        ("Cancel Card", "Cancel any card just played.")
+    ]
+}</pre>
+        <p>Then when the game screen shows up, using the “<code>.onAppear</code>” we deal the starting cards to each player.</p>
+        <pre>
+.onAppear {
+    dealInitialCards()
+}</pre>
+        <p>This function will deal 5 cards at random to each player to start the game and adds each card to an array called the player's hand. 
+            This is what gets displayed on the game screen. To display the cards we use a vertical stack of buttons that have text for both the 
+            “card.name” and “card.description”.</p>
+        <pre>
+VStack {
+    if playerCards.indices.contains(currentTurn - 1) {
+        ForEach(playerCards[currentTurn - 1], id: \.name) { card in
+        Button(action: {
+            playCard(card)
+        }) {
+        VStack(alignment: .leading) {
+            Text(card.name)
+                .font(.headline)
+            Text(card.description)
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            }
+            .padding()
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(8)
+            }
+        }
+    } else {
+        Text("No cards available").italic()
+    }
+}</pre>
+        <p>When a player clicks on the card to play it a couple things happen. First the app finds what card has been clicked on by checking
+             the name of the card. Then the app will print out that player 1 for example, played and then the description of the card. It 
+             then adds that card to the played cards and moves to the next player or hole depending on who just went. When the app moves 
+             to the next player it will draw one new card to replenish the card used ensuring each player always has at least 5 cards.</p>    
+<pre>
+private func playCard(_ card: (name: String, description: String)) {
+    // Ensure the current player's cards exist
+    guard playerCards.indices.contains(currentTurn - 1) else {
+        cardText = "Error: Player \(currentTurn) has no cards."
+        return
+    }
+    
+    // Find the index of the card to be played
+    if let index = playerCards[currentTurn - 1].firstIndex(where: { $0.name == card.name }) {
+        playerCards[currentTurn - 1].remove(at: index)
+        cardText = "Player \(currentTurn) played \(card.name): \(card.description)"
+        playedCards.append(card)
+        nextTurnOrHole()
+    } else {
+        // Handle case where the card isn't found
+        cardText = "Error: Card not found in Player \(currentTurn)'s hand."
+    }
+}</pre>
+        <p>The next turn or hole just checks if we are on the last player then we move to the next hole or if not then move to the next 
+            player. It also checks if the hole number is the desired ending hole and clears all the cards and displays a thanks for playing 
+            message. The next player button turns into a back to lobby button that will bring the player back to the lobby screen</p>
+<pre>
+private func nextTurnOrHole() {
+    if currentTurn < players {
+        // Move to the next player's turn
+        currentTurn += 1
+    } else {
+        // All players have played; move to the next hole
+        currentTurn = 1
+        if currentHole < holes {
+            currentHole += 1
+        } else {
+            // End game if all holes are played
+            isGameOver = true // Set game over state
+            clearAllCards()
+        }
+    }
+    // Replenish cards for the current player at the start of their turn
+    replenishCards(for: currentTurn - 1)
+}</pre>
+
+
+
         </section>
         <section>
             <h2>Video Demonstration</h2>
